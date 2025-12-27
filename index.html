@@ -13,14 +13,14 @@
 }
 
 body {
-  height: 100vh;
-  background: linear-gradient(135deg, #ff5f7e, #ff9a9e, #fad0c4);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff9a9e, #fad0c4);
   background-size: 400% 400%;
-  animation: bg 12s ease infinite;
+  animation: bg 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @keyframes bg {
@@ -30,86 +30,82 @@ body {
 }
 
 .container {
-  width: 340px;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(14px);
-  border-radius: 28px;
-  padding: 20px;
+  width: 92%;
+  max-width: 360px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(16px);
+  border-radius: 26px;
+  padding: 22px;
   text-align: center;
   color: white;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-  animation: fadeIn 1.5s ease;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.28);
+  animation: fadeIn 1.6s ease;
 }
 
 @keyframes fadeIn {
-  from {opacity:0; transform: translateY(30px);}
+  from {opacity:0; transform: translateY(25px);}
   to {opacity:1; transform: translateY(0);}
 }
 
-.heart {
-  font-size: 64px;
-  animation: beat 1.2s infinite;
-  margin-bottom: 10px;
-}
-
-@keyframes beat {
-  0%,100% {transform: scale(1);}
-  50% {transform: scale(1.25);}
-}
-
-h1 {
+.title {
   font-size: 22px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
 .slider {
   position: relative;
   width: 100%;
-  height: 220px;
-  border-radius: 18px;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
   overflow: hidden;
-  margin: 15px 0;
+  background: rgba(255,255,255,0.1);
 }
 
 .slider img {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* KESME YOK */
   opacity: 0;
-  transition: opacity 1.2s ease;
+  transform: scale(1.04);
+  transition: opacity 1.5s ease, transform 4s ease;
 }
 
 .slider img.active {
   opacity: 1;
+  transform: scale(1);
 }
 
-p {
+.text {
+  margin-top: 16px;
   font-size: 15px;
   line-height: 1.6;
-  margin-top: 10px;
 }
 
 button {
   margin-top: 18px;
-  padding: 12px 24px;
+  padding: 12px 26px;
   border: none;
-  border-radius: 30px;
+  border-radius: 999px;
   background: white;
   color: #ff5f7e;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.3s ease;
 }
 
-button:hover {
-  transform: scale(1.08);
+button:active {
+  transform: scale(0.95);
 }
 
 .secret {
   display: none;
-  margin-top: 15px;
+  margin-top: 14px;
   font-size: 14px;
+  line-height: 1.5;
 }
 </style>
 </head>
@@ -117,8 +113,7 @@ button:hover {
 <body>
 
 <div class="container">
-  <div class="heart">❤️</div>
-  <h1>Seni kırdım</h1>
+  <div class="title">Seni çok seviyorum</div>
 
   <div class="slider">
     <img src="foto1.jpg.jpeg" class="active">
@@ -128,30 +123,30 @@ button:hover {
     <img src="foto5.jpg.jpeg">
   </div>
 
-  <p>
-    Bunlar sadece anı değil.<br>
-    Hepsi kalbimde yer etmiş anlar.
-  </p>
+  <div class="text">
+    Bunlar sadece fotoğraf değil.<br>
+    Hepsi benim için birer hatırlatma.
+  </div>
 
-  <button onclick="showSecret()">Kalbimden</button>
+  <button onclick="openHeart()">Kalbimden</button>
 
   <div class="secret" id="secret">
-    Seni üzmek değil,<br>
-    seni hep böyle gülümsetmek istiyorum.
+    Yanında olamasam da<br>
+    kalbim hep seninle.
   </div>
 </div>
 
 <script>
-let current = 0;
-const images = document.querySelectorAll(".slider img");
+let index = 0;
+const imgs = document.querySelectorAll(".slider img");
 
 setInterval(() => {
-  images[current].classList.remove("active");
-  current = (current + 1) % images.length;
-  images[current].classList.add("active");
-}, 4000);
+  imgs[index].classList.remove("active");
+  index = (index + 1) % imgs.length;
+  imgs[index].classList.add("active");
+}, 4500);
 
-function showSecret() {
+function openHeart() {
   document.getElementById("secret").style.display = "block";
 }
 </script>
